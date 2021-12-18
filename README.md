@@ -2,15 +2,20 @@
 Calculates bounds on the sofa moving problem
 
 The program depends on CGAL (The Computational Geometry Algorithms Library) and GMP (GNU Multiple Precision Arithmetic Library).
-Tested to work with CGAL 4.12 and Boost 1.67.
+This version works with the latest version of CGAL (5.2.1) and Boost (1.75.0).
 
 On a typical setup, you will compile the program with the following command:
 
-    g++ -o SofaBounds sofa-bounds.cpp branch-and-bound.cpp frontend.cpp -lCGAL -lgmp -lmpfr -O3 -frounding-math -finline-functions -lpthread
+```
+mkdir build && cd build
+cmake ..
+make
+```
+<!-- g++ -o SofaBounds sofa-bounds.cpp branch-and-bound.cpp frontend.cpp -lCGAL -lgmp -lmpfr -O3 -frounding-math -finline-functions -lpthread -->
 
 Running the executable will present you with a prompt.
 
-    $ ./SofaBounds 
+    $ ./sofabounds 
     SofaBounds version 1.0
 
     Type "help" for instructions.

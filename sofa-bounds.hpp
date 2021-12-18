@@ -12,26 +12,29 @@
 //  Copyright © 2017 Yoav Kallus and Dan Romik
 //
 
+// #include <CGAL/Gmpq.h>
+// #include <CGAL/Gmpxx.h>
+
 #include <CGAL/Exact_integer.h>
 #include <CGAL/Exact_rational.h>
 #include <CGAL/Filtered_extended_homogeneous.h>
 #include <CGAL/Nef_polyhedron_2.h>
-#include <sstream>
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <iomanip>
-#include <thread>
 #include <chrono>
-#include <math.h>
+#include <fstream>
 #include <gmp.h>
+#include <iomanip>
+#include <iostream>
+#include <math.h>
+#include <sstream>
+#include <string>
+#include <thread>
 
 typedef CGAL::Exact_integer ExactInteger;
 typedef CGAL::Exact_rational ExactRational;
 typedef CGAL::Filtered_extended_homogeneous<ExactInteger> Extended_kernel;
 typedef CGAL::Nef_polyhedron_2<Extended_kernel> Nef_polygon;
 typedef Nef_polygon::Point Point;
-typedef Nef_polygon::Line  Line;
+typedef Nef_polygon::Line Line;
 typedef Nef_polygon::Explorer Explorer;
 
 struct slope {
@@ -41,7 +44,7 @@ struct slope {
 };
 
 struct interval {
-    ExactRational left; //left endpoint
+    ExactRational left;  //left endpoint
     ExactRational right; //right endpoint
 };
 
@@ -54,11 +57,11 @@ struct box {
 struct bb_thread_params {
     //problem specification
     std::vector<struct slope> intermediate; //alpha_1, ..., alpha_k
-    struct slope initial; //should always be zero for a_priori_bounds to be correct
-    struct slope final_min; //beta_1
-    struct slope final_max; //beta_2
-    bool has_final; //should be true if beta_2 < pi/2
-    unsigned int num_intermediate; //k
+    struct slope initial;                   //should always be zero for a_priori_bounds to be correct
+    struct slope final_min;                 //beta_1
+    struct slope final_max;                 //beta_2
+    bool has_final;                         //should be true if beta_2 < pi/2
+    unsigned int num_intermediate;          //k
 
     //runtime variables
     ExactRational lower_bound; //best lower bound so far
@@ -66,10 +69,10 @@ struct bb_thread_params {
     std::vector<ExactRational> lower_bound_witness;
     std::vector<ExactRational> lower_bound_polygon;
     std::vector<ExactRational> upper_bound_polygon;
-    bool stop_flag; //set to true to make the branch-and-bound loop stop
-    bool report_flag; //set to true to make branch-and-bound loop output upper and lower bound polygons to the file fpoly_name
+    bool stop_flag;         //set to true to make the branch-and-bound loop stop
+    bool report_flag;       //set to true to make branch-and-bound loop output upper and lower bound polygons to the file fpoly_name
     bool is_thread_running; //true while running
-    std::thread *mythread; //thread running the branch-and-bound calculation
+    std::thread *mythread;  //thread running the branch-and-bound calculation
     std::string fpoly_name;
     unsigned long iterations;
     std::chrono::high_resolution_clock::time_point t_start;
@@ -78,17 +81,16 @@ struct bb_thread_params {
     bool reporteverysec_on, reporteveryiter_on, reporteveryjump_on;
     std::chrono::high_resolution_clock::time_point reporteverysec_last;
     unsigned int reporteverysec_inc;
-    unsigned long reporteveryiter_last,reporteveryiter_inc;
-    double reporteveryjump_last,reporteveryjump_inc;
+    unsigned long reporteveryiter_last, reporteveryiter_inc;
+    double reporteveryjump_last, reporteveryjump_inc;
 };
 
 struct CompareBoxes {
     //this struct is defined to provide the priority queue template access to an operator comparing box structs
-    bool operator() (const struct box &op1, const struct box &op2) const { return (op1.upper_bound_on_max_in_box < op2.upper_bound_on_max_in_box); }
+    bool operator()(const struct box &op1, const struct box &op2) const { return (op1.upper_bound_on_max_in_box < op2.upper_bound_on_max_in_box); }
 };
 
 //these functions are implemented in sofa-bounds.cpp
-std::string rat_str(ExactRational x);
 void split_interval(struct interval b, struct interval *b1, struct interval *b2);
 struct interval midpoint_of_interval(struct interval b);
 ExactRational area(Nef_polygon N, std::vector<ExactRational> *polygon);
