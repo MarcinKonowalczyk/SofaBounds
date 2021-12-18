@@ -1,6 +1,6 @@
 //
 //  sofa-bounds.cpp
-//  SofaBounds Version 1.0
+//  SofaBounds Version 1.1
 //
 //  This source file is part of the SofaBounds software package
 //  SofaBounds is a program that proves upper bounds in the moving sofa problem,

@@ -1,6 +1,6 @@
 //
 //  sofa-bounds.hpp
-//  SofaBounds Version 1.0
+//  SofaBounds Version 1.1
 //
 //  This source file is part of the SofaBounds software package
 //  SofaBounds is a program that proves upper bounds in the moving sofa problem,
@@ -14,6 +14,8 @@
 
 // #include <CGAL/Gmpq.h>
 // #include <CGAL/Gmpxx.h>
+
+#define SOFABOUNDS_VERSION "1.1"
 
 #include <CGAL/Exact_integer.h>
 #include <CGAL/Exact_rational.h>

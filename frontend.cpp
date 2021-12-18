@@ -1,6 +1,6 @@
 //
 //  frontend.cpp
-//  SofaBounds Version 1.0
+//  SofaBounds Version 1.1
 //
 //  This source file is part of the SofaBounds software package
 //  SofaBounds is a program that proves upper bounds in the moving sofa problem,
@@ -27,9 +27,9 @@ PythagoreanTriple final_slope_max = {1, 0, 1};
 PythagoreanTriple corridor_slopes[MAX_CORRIDORS] = {119, 120, 169};
 std::thread mythread;
 
-const std::string welcome_string = "SofaBounds version 1.0\n\nType \"help\" for instructions.\n\n";
-const std::string info_string = "SofaBounds version 1.0\nCreated by Yoav Kallus and Dan Romik\nYou are free to use and/or modify the software and source code. Enjoy!\n";
-const std::string help_string = "\nSofaBounds version 1.0\n\n\
+const std::string welcome_string = "SofaBounds version " SOFABOUNDS_VERSION"\n\nType \"help\" for instructions.\n\n";
+const std::string info_string = "SofaBounds version " SOFABOUNDS_VERSION"\nCreated by Yoav Kallus and Dan Romik\nYou are free to use and/or modify the software and source code. Enjoy!\n";
+const std::string help_string = "\nSofaBounds version " SOFABOUNDS_VERSION"\n\n\
 Valid commands are: \n\
 help:\t\t\tprints this help message\n\
 info:\t\t\tprints version and license information\n\
